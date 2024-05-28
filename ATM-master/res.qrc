@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/rec">
+        <file>pictures/png-transparent-black-hour-glass-hourglass-computer-icons-time-hourglass-text-logo-monochrome-thumbnail.png</file>
+        <file>pictures/hourglass.png</file>
+        <file>pictures/free-icon-atm-940930.png</file>
+        <file>pictures/free-icon-atm-3742459.png</file>
+        <file>pictures/free-icon-receipt-5816416.png</file>
+        <file>pictures/free-icon-play-4210629.png</file>
+        <file>pictures/free-icon-atm-card-security-11815914.png</file>
+        <file>pictures/free-icon-atm-5346812.png</file>
+        <file>pictures/free-icon-check-mark-5299035.png</file>
+        <file>pictures/free-icon-clear-1632708.png</file>
+        <file>pictures/free-icon-meh-927557.png</file>
+        <file>pictures/free-icon-sadness-7198866.png</file>
+        <file>pictures/free-icon-smile-1794767.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>style.css</file>
+    </qresource>
+</RCC>
