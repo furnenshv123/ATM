@@ -60,8 +60,9 @@ void CashGiveWindow::on_FiveButton_clicked()
     countOfBanknotes = query->value(1).toInt();
     newCountOfBanknotes = countOfBanknotes - 1;
     query->exec();
-    if(newBalanceGive < 0|| newCountOfBanknotes < 0){
+    if(newBalanceGive < 0 || newCountOfBanknotes < 0){
         ui->errorStack->show();
+        ui->FiveButton->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.122749, y1:1, x2:0.129, y2:1, stop:0 rgba(255, 17, 0, 255), stop:1 rgba(211, 211, 211, 255));color: #006400;font-size: 17px;font-weight: 700;border-radius: 10px;");
     }else{
     query->exec();
     query->prepare("UPDATE Cards SET Balance=ROUND(:balance,2) WHERE Balance=:old_balance;");
@@ -134,6 +135,8 @@ void CashGiveWindow::slot_checkprint_to_countinue()
 
 void CashGiveWindow::on_TenButton_clicked()
 {
+    int countOfFive;
+    int countOfTen;
     float balanceGive;
     float newBalanceGive;
     strVariantOne = "5*2";
@@ -146,8 +149,14 @@ void CashGiveWindow::on_TenButton_clicked()
     balanceGive = query->value(2).toFloat();
     newBalanceGive = balanceGive - 10.0;
     query->exec();
-    if(newBalanceGive < 0){
+    query->exec("SELECT * FROM Banknotes;");
+    query->next();
+    countOfFive = query->value(1).toInt();
+    query->next();
+    countOfTen = query->value(1).toInt();
+    if(newBalanceGive < 0 || (countOfFive - 2 < 0 && countOfTen - 1 < 0)){
         ui->errorStack->show();
+        ui->TenButton->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.122749, y1:1, x2:0.129, y2:1, stop:0 rgba(255, 17, 0, 255), stop:1 rgba(211, 211, 211, 255));color: #006400;font-size: 17px;font-weight: 700;border-radius: 10px;");
     }else{
     query->prepare("UPDATE Cards SET Balance=ROUND(:balance,2) WHERE Balance=:old_balance;");
     query->bindValue(":balance", newBalanceGive);
@@ -164,6 +173,8 @@ void CashGiveWindow::on_TenButton_clicked()
 
 void CashGiveWindow::on_TwentyButton_clicked()
 {
+    int countOfTwenty;
+    int countOfTen;
     float balanceGive;
     float newBalanceGive;
     strVariantOne = "10*2";
@@ -176,8 +187,15 @@ void CashGiveWindow::on_TwentyButton_clicked()
     balanceGive = query->value(2).toFloat();
     newBalanceGive = balanceGive - 20.0;
     query->exec();
-    if(newBalanceGive < 0){
+    query->exec("SELECT * FROM Banknotes;");
+    query->next();
+    query->next();
+    countOfTen = query->value(1).toInt();
+    query->next();
+    countOfTwenty = query->value(1).toInt();
+    if(newBalanceGive < 0 || (countOfTwenty - 1 < 0 && countOfTen - 2 < 0)){
         ui->errorStack->show();
+        ui->TwentyButton->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.122749, y1:1, x2:0.129, y2:1, stop:0 rgba(255, 17, 0, 255), stop:1 rgba(211, 211, 211, 255));color: #006400;font-size: 17px;font-weight: 700;border-radius: 10px;");
     }else{
     query->prepare("UPDATE Cards SET Balance=ROUND(:balance,2) WHERE Balance=:old_balance;");
     query->bindValue(":balance", newBalanceGive);
@@ -194,6 +212,9 @@ void CashGiveWindow::on_TwentyButton_clicked()
 
 void CashGiveWindow::on_fiftyButton_clicked()
 {
+    int countOfFive;
+    int countOfTen;
+    int countOfTwenty;
     float balanceGive;
     float newBalanceGive;
     strVariantOne = "5*10";
@@ -206,8 +227,16 @@ void CashGiveWindow::on_fiftyButton_clicked()
     balanceGive = query->value(2).toFloat();
     newBalanceGive = balanceGive - 50.0;
     query->exec();
-    if(newBalanceGive < 0){
+    query->exec("SELECT * FROM Banknotes;");
+    query->next();
+    countOfFive = query->value(1).toInt();
+    query->next();
+    countOfTen = query->value(1).toInt();
+    query->next();
+    countOfTwenty = query->value(1).toInt();
+    if(newBalanceGive < 0 || (countOfFive - 10 < 0 && (countOfTwenty - 2 < 0 || countOfTen - 1 < 0))){
         ui->errorStack->show();
+        ui->fiftyButton->setStyleSheet("background-color:qlineargradient(spread:pad, x1:0.921631, y1:1, x2:0.917, y2:1, stop:0 rgba(255, 17, 0, 255), stop:1 rgba(211, 211, 211, 255));color: #006400;font-size: 22px;font-weight: 700;margin-left:10px;border-radius: 10px;");
     }else{
     query->prepare("UPDATE Cards SET Balance=ROUND(:balance,2) WHERE Balance=:old_balance;");
     query->bindValue(":balance", newBalanceGive);
@@ -224,6 +253,8 @@ void CashGiveWindow::on_fiftyButton_clicked()
 
 void CashGiveWindow::on_oneHundredButton_clicked()
 {
+    int countOfFifty;
+    int countOfOneHundred;
     float balanceGive;
     float newBalanceGive;
     strVariantOne = "50*2";
@@ -236,7 +267,16 @@ void CashGiveWindow::on_oneHundredButton_clicked()
     balanceGive = query->value(2).toFloat();
     newBalanceGive = balanceGive - 100.0;
     query->exec();
-    if(newBalanceGive < 0){
+    query->exec("SELECT * FROM Banknotes;");
+    query->next();
+    query->next();
+    query->next();
+    query->next();
+    countOfFifty = query->value(1).toInt();
+    query->next();
+    countOfOneHundred = query->value(1).toInt();
+    if(newBalanceGive < 0 || (countOfFifty - 2 < 0 && countOfOneHundred - 1 < 0)){
+        ui->oneHundredButton->setStyleSheet("background-color:qlineargradient(spread:pad, x1:0.921631, y1:1, x2:0.917, y2:1, stop:0 rgba(255, 17, 0, 255), stop:1 rgba(211, 211, 211, 255));color: #006400;font-size: 22px;font-weight: 700;margin-left:10px;border-radius: 10px;");
         ui->errorStack->show();
     }else{
     query->prepare("UPDATE Cards SET Balance=ROUND(:balance,2) WHERE Balance=:old_balance;");
@@ -254,10 +294,12 @@ void CashGiveWindow::on_oneHundredButton_clicked()
 
 void CashGiveWindow::on_twoHundredButton_clicked()
 {
+    int countOfFifty;
+    int countOfTwoHundred;
     float balanceGive;
     float newBalanceGive;
     strVariantOne = "50*4";
-    strVariantTwo = "100*2";
+    strVariantTwo = "200*1";
     query = new QSqlQuery(db);
     query->exec("SELECT * FROM Cards;");
     for(int i= 0 ;i < index_db_cash;i++){
@@ -266,7 +308,17 @@ void CashGiveWindow::on_twoHundredButton_clicked()
     balanceGive = query->value(2).toFloat();
     newBalanceGive = balanceGive - 200.0;
     query->exec();
-    if(newBalanceGive < 0){
+    query->exec("SELECT * FROM Banknotes;");
+    query->next();
+    query->next();
+    query->next();
+    query->next();
+    countOfFifty = query->value(1).toInt();
+    query->next();
+    query->next();
+    countOfTwoHundred = query->value(1).toInt();
+    if(newBalanceGive < 0 || (countOfFifty - 4 < 0 && countOfTwoHundred - 1 < 0)){
+        ui->twoHundredButton->setStyleSheet("background-color:qlineargradient(spread:pad, x1:0.921631, y1:1, x2:0.917, y2:1, stop:0 rgba(255, 17, 0, 255), stop:1 rgba(211, 211, 211, 255));color: #006400;font-size: 22px;font-weight: 700;margin-left:10px;border-radius: 10px;");
         ui->errorStack->show();
     }else{
     query->prepare("UPDATE Cards SET Balance=ROUND(:balance,2) WHERE Balance=:old_balance;");
@@ -527,8 +579,9 @@ void CashGiveWindow::on_variantCashTwo_clicked()
         connect(timer_wait, SIGNAL(timeout()), this, SLOT(wait_Timer()));
         timer_wait->start(3000);
         }
-    }else if(strVariantTwo == "100*2"){
+    }else if(strVariantTwo == "200*1"){
         query->exec("SELECT * FROM Banknotes;");
+        query->next();
         query->next();
         query->next();
         query->next();
@@ -536,14 +589,14 @@ void CashGiveWindow::on_variantCashTwo_clicked()
         query->next();
         countBanknotes = query->value(1).toInt();
         query->exec();
-        newCountBanknotes = countBanknotes - 2;
+        newCountBanknotes = countBanknotes - 1;
         if(newCountBanknotes < 0){
         ui->variantCashTwo->setEnabled(false);
         ui->variantCashTwo->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.122749, y1:1, x2:0.129, y2:1, stop:0 rgba(255, 17, 0, 255), stop:1 rgba(211, 211, 211, 255));color: #006400; font-size: 22px; font-weight: 700; margin-left:15px; margin-right: 10px; border-radius: 10px;");
         }else{
         query->prepare("UPDATE Banknotes SET Count=:count WHERE Denomination=:abc;");
         query->bindValue(":count", newCountBanknotes);
-        query->bindValue(":abc", 100.0);
+        query->bindValue(":abc", 200.0);
         query->exec();
         ui->stackedWidget->hide();
         ui->giveCahs_group->show();
@@ -593,7 +646,6 @@ void CashGiveWindow::on_insertButtonOther_clicked()
     if(newBalanceCard < 0 || QVariant(otherSum).toInt() % 5 != 0 ){
         ui->errorLabel->show();
     }else{
-
     query->prepare("UPDATE Cards SET Balance=:balance WHERE Balance=:old;");
     query->bindValue(":balance", newBalanceCard);
     query->bindValue(":old", balanceCard);

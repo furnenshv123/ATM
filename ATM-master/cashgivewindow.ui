@@ -99,7 +99,6 @@ background-color:#006400;</string>
 color: #006400;
 font-size: 17px;
 font-weight: 700;
-
 border-radius: 10px;</string>
           </property>
           <property name="text">
@@ -225,7 +224,6 @@ color: #006400;
 font-size: 22px;
 font-weight: 700;
 margin-left:10px;
-
 border-radius: 10px;</string>
           </property>
           <property name="text">

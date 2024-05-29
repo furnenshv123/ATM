@@ -115,7 +115,6 @@ public:
 "color: #006400;\n"
 "font-size: 17px;\n"
 "font-weight: 700;\n"
-"\n"
 "border-radius: 10px;"));
 
         verticalLayout->addWidget(FiveButton);
@@ -177,7 +176,6 @@ public:
 "font-size: 22px;\n"
 "font-weight: 700;\n"
 "margin-left:10px;\n"
-"\n"
 "border-radius: 10px;"));
 
         verticalLayout_2->addWidget(fiftyButton);
